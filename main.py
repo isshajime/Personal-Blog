@@ -11,7 +11,7 @@ from sqlalchemy import Integer, String, Text, ForeignKey
 from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
-# from dotenv import load_dotenv
+from dotenv import load_dotenv
 # Import your forms from the forms.py
 from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 from typing import List
@@ -29,10 +29,21 @@ pip3 install -r requirements.txt
 This will install the packages from the requirements.txt for this project.
 '''
 
-# load_dotenv()
+load_dotenv()
 
 app = Flask(__name__)
-app.config['SECRET KEY'] = os.environ.get("FLASH_KEY")
+
+secret_key = os.getenv('FLASK_KEY')
+print(f"Secret Key: {secret_key}")
+
+print(os.getenv("FLASK_KEY"))
+print(os.environ)
+app.config['SECRET_KEY'] = os.getenv("FLASK_KEY")
+# app.config['SECRET_KEY'] = "8BYkEfBA6O6donzWlSihBXox7C0sKR6b"
+
+# print("FLASK_KEY:", os.getenv('FLASK_KEY'))
+
+
 
 ckeditor = CKEditor(app)
 Bootstrap5(app)
